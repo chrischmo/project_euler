@@ -1,10 +1,20 @@
 def convert_str_matrix(str_matrix):
-	matrix = []
-	for line in str_matrix.splitlines(): 
-		matrix.append([int(num) for num in line.split(" ")])
-		
-	return matrix
+	"""Converts a matrix given as a string
+	(columns separated by spaces, rows separated by line breaks)
+	to a list of arrays (rows) containing integers (columns)."""
 
+	return [[int(num) for num in line.split(" ")] for line in str_matrix.splitlines()]
+        
+	"""The line above is a list comprehension. It is equivalent to:
+	matrix = []
+        for line in str_matrix.splitlines():
+               col = []
+               for num in line.split(" "):
+                       col.append(int(num))
+               matrix.append(col)
+        return matrix"""
+
+		
 def get_matrix_value(matrix, row, col):
 	return null
 	
