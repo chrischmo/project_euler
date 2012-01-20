@@ -1,10 +1,15 @@
 import math
 
+
 def is_prime(n):
-	n = abs(n)
-	for x in range(2, int(math.sqrt(n))+1):
-		if n % x == 0: return False
-	return True
+        n = abs(n)
+        if n <=1: return False
+        elif n == 2: return True
+        else:
+                for x in range(3, int(math.sqrt(n))+1, 2): #step is 2 because we only want odd divisors
+                        if n % x == 0: return False
+                return True
+
 
 def get_prime_factors(number):
 	prime_numbers = []
@@ -15,11 +20,11 @@ def get_prime_factors(number):
 
         print "== Beginning search for prime numbers =="
 
-	prime_candidate = number/2
+	prime_candidate = number/2    # is there a better way to limit the range?
+	if prime_candidate % 2 == 0: prime_candidate += 1    # we only want odd numbers
 	while prime_candidate > 1:
 		if is_prime(prime_candidate): prime_numbers.append(prime_candidate)
-		if prime_candidate % 1000 == 0: print " Examined " + str(prime_candidate)
-		prime_candidate -= 1
+		prime_candidate -= 2 #   we only want to examine odd numbers 
 
 	print "== Now checking if the primes found are divisors of " + str(number) + " =="
 
