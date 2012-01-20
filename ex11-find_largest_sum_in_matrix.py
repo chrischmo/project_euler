@@ -21,7 +21,25 @@ def get_row(matrix, row):
 def get_col(matrix, col):
 	return [row[col] for row in matrix]
  
-	
+def get_diagonal_down(matrix, start_row):
+	sequence = []
+	col = 0
+	for row in matrix[start_row:]:
+	        if col < len(matrix[0]):
+			sequence.append(row[col])
+			col += 1
+	return sequence
+		
+	"""Don't know how to achieve above procedure with list comprehension - 
+	the following list comprehension just returns all array numbers.
+	Possible at all?"""
+	#return [row[col] for row in matrix[start_row:] for col in range(len(matrix[0]))]
+
+def get_diagonal_up(matrix, start_row):
+	matrix = matrix[start_row:]
+	matrix.reverse()
+ 	return get_diagonal_down(matrix, 0)
+
 
 
 str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -45,5 +63,10 @@ str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
+print str_matrix
 matrix = convert_str_matrix(str_matrix)
+print get_row(matrix, 2)
+print get_col(matrix, 2)
+print get_diagonal_down(matrix, 4)
+print get_diagonal_up(matrix, 4)
 
