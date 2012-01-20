@@ -14,12 +14,8 @@ def convert_str_matrix(str_matrix):
                matrix.append(col)
         return matrix"""
 
-		
-def get_matrix_value(matrix, row, col):
-	return null
-	
-			
-	
+
+
 
 str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
