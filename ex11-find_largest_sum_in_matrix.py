@@ -1,47 +1,3 @@
-def convert_str_matrix(str_matrix):
-	"""Converts a matrix given as a string
-	(columns separated by spaces, rows separated by line breaks)
-	to a list of arrays (rows) containing integers (columns)."""
-
-
-	return [[int(num) for num in line.split(" ")] for line in str_matrix.splitlines()]
-        
-	"""The line above is a list comprehension. It is equivalent to:
-	matrix = []
-        for line in str_matrix.splitlines():
-               col = []
-               for num in line.split(" "):
-                       col.append(int(num))
-               matrix.append(col)
-        return matrix"""
-
-def get_row(matrix, row):
-	return matrix[row]
-
-def get_col(matrix, col):
-	return [row[col] for row in matrix]
- 
-def get_diagonal_down(matrix, start_row):
-	sequence = []
-	col = 0
-	for row in matrix[start_row:]:
-	        if col < len(matrix[0]):
-			sequence.append(row[col])
-			col += 1
-	return sequence
-		
-	"""Don't know how to achieve above procedure with list comprehension - 
-	the following list comprehension just returns all array numbers.
-	Possible at all?"""
-	#return [row[col] for row in matrix[start_row:] for col in range(len(matrix[0]))]
-
-def get_diagonal_up(matrix, start_row):
-	matrix = matrix[start_row:]
-	matrix.reverse()
- 	return get_diagonal_down(matrix, 0)
-
-
-
 str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
@@ -63,10 +19,88 @@ str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
-print str_matrix
+
+
+def convert_str_matrix(str_matrix):
+	"""Converts a matrix given as a string
+	(columns separated by spaces, rows separated by line breaks)
+	to a list of arrays (rows) containing integers (columns)."""
+
+
+	return [[int(num) for num in line.split(" ")] for line in str_matrix.splitlines()]
+        
+	"""The line above is a list comprehension. It is equivalent to:
+	matrix = []
+        for line in str_matrix.splitlines():
+               col = []
+               for num in line.split(" "):
+                       col.append(int(num))
+               matrix.append(col)
+        return matrix"""
+
+def get_row(matrix, row):
+	"""Returns a list with all values in a row of a given matrix"""
+	return matrix[row]
+
+def get_col(matrix, col):
+	"""Returns a list with all values in a column of a given matrix"""
+	return [row[col] for row in matrix]
+ 
+def get_diagonal_down(matrix, start_row):
+	"""Returns a list of all the values in an upward diagonal 'row' across the matrix,
+	starting at start_row"""
+	sequence = []
+	col = 0
+	for row in matrix[start_row:]:
+	        if col < len(matrix[0]):
+			sequence.append(row[col])
+			col += 1
+	return sequence
+		
+	"""Don't know if this can be achieved using list comprehension 
+	- the following statement just returns all numbers of the rows, starting with start_row."""
+	#return [row[col] for row in matrix[start_row:] for col in range(len(matrix[0]))]
+
+def get_diagonal_up(matrix, start_row):
+	"""Returns a list of all the values in a downward diagonal 'row' across the matrix,
+	starting at start_row"""
+	matrix = matrix[:start_row+1]
+	matrix.reverse()
+ 	return get_diagonal_down(matrix, 0)
+
+def get_all(matrix):
+	"""Returns a list with an array for each row, column and all diagonal 'rows'
+	of a given matrix"""
+	my_list = []
+	for row in range(len(matrix)): my_list.append(get_row(matrix, row))
+	for col in range(len(matrix[0])): my_list.append(get_col(matrix, col))
+	for row in range(len(matrix)): my_list.append(get_diagonal_up(matrix, row))
+        for row in range(len(matrix)): my_list.append(get_diagonal_down(matrix, row))
+	return my_list
+
+def get_product(my_list):
+	"""Returns the product of all numbers in a list"""
+	product = 1
+	for number in my_list: product *= number
+	return product
+
+def find_greatest_product(my_list, n):
+	"""Returns the greatest product of all sequences of n consecutive numbers in a list"""
+	largest_product = 0
+	for i in range(0, len(my_list)-n):
+		candidate = get_product(my_list[i:i+n])
+		if candidate > largest_product: largest_product = candidate
+	return largest_product
+
+
 matrix = convert_str_matrix(str_matrix)
-print get_row(matrix, 2)
-print get_col(matrix, 2)
-print get_diagonal_down(matrix, 4)
-print get_diagonal_up(matrix, 4)
+#for l in matrix: print l
+#print "="*100
+
+all_rows = get_all(matrix)
+largest_product = 0
+for row in all_rows:
+	candidate = find_greatest_product(row, 4)
+	if candidate > largest_product: largest_product = candidate
+print largest_product
 
