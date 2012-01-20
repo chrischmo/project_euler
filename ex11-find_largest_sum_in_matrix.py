@@ -3,6 +3,7 @@ def convert_str_matrix(str_matrix):
 	(columns separated by spaces, rows separated by line breaks)
 	to a list of arrays (rows) containing integers (columns)."""
 
+
 	return [[int(num) for num in line.split(" ")] for line in str_matrix.splitlines()]
         
 	"""The line above is a list comprehension. It is equivalent to:
@@ -14,7 +15,13 @@ def convert_str_matrix(str_matrix):
                matrix.append(col)
         return matrix"""
 
+def get_row(matrix, row):
+	return matrix[row]
 
+def get_col(matrix, col):
+	return [row[col] for row in matrix]
+ 
+	
 
 
 str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -38,5 +45,5 @@ str_matrix = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
-print str_matrix
-print convert_str_matrix(str_matrix)
+matrix = convert_str_matrix(str_matrix)
+
