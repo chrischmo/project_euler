@@ -12,25 +12,20 @@ def is_prime(n):
 
 
 def get_prime_factors(number):
-	prime_numbers = []
-	prime_factors = []
+	prime_factors = [2] # we want to examine odd numbers only, so we'll start with 3 as candidate
 
         if is_prime(number):
                 prime_factors.append(number)
 
         print "== Beginning search for prime numbers =="
 
-	prime_candidate = number/2    # is there a better way to limit the range?
+	prime_candidate = 3 # 2 already added to prime_numbers
 	if prime_candidate % 2 == 0: prime_candidate += 1    # we only want odd numbers
-	while prime_candidate > 1:
-		if is_prime(prime_candidate): prime_numbers.append(prime_candidate)
-		prime_candidate -= 2 #   we only want to examine odd numbers 
 
-	print "== Now checking if the primes found are divisors of " + str(number) + " =="
-
-	for factor_candidate in prime_numbers:
-		if number % factor_candidate == 0: 
-			prime_factors.append(factor_candidate)
+	while prime_candidate < (number+1)/2:
+		if number % prime_candidate == 0 and is_prime(prime_candidate): 
+			prime_factors.append(prime_candidate)
+		prime_candidate += 2 #   we only want to examine odd numbers 
 
 	return prime_factors
 

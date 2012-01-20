@@ -10,7 +10,7 @@ def find_py_triplet(abc_sum):
 	   where u and v are natural numbers and u > v
 	   => 2*(u**2) + 2*u*v = sum(a, b, c)"""
 
-	u = int(math.sqrt(abc_sum)) + 1
+	u = int(math.sqrt(abc_sum/2)) + 1
 
 	while u > 2:
 		v = 1
@@ -25,7 +25,7 @@ def find_py_triplet(abc_sum):
 	return (0, 0, 0)
 
 def checkpy(abc_tuple):
-	"""Checks if a given triplet (a, b, c) fulfills a² + b² = c²"""
+	"""Checks if a given triplet (a, b, c) fulfills a**2 + b**2 = c**2"""
 	return abc_tuple[0]**2 + abc_tuple[1]**2 == abc_tuple[2]**2
 
 def multiply_triplet(triplet):

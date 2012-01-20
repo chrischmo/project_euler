@@ -2,13 +2,11 @@
 import math
 
 def factorize(n):
-    print n
     res = []
     # iterate over all even numbers first.
     while n % 2 == 0:
         res.append(2)
         n //= 2
-    print n
     # try odd numbers up to sqrt(n)
     limit = math.sqrt(n+1)
     i = 3
@@ -23,4 +21,6 @@ def factorize(n):
         res.append(n)
     return res
 
-print max(factorize(600851475143))
+prime_factors = factorize(600851475143)
+print prime_factors
+print max(prime_factors)
